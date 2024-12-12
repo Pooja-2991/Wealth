@@ -1,59 +1,69 @@
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 
 import React, {useState} from 'react'
+import Date from '@/components/Date'
+import { useFonts } from "expo-font";
+
 
 const container = () => {
-
+    const [fontsLoaded] = useFonts({
+        "CharmanSerif": require("@/assets/fonts/CharmanSerif-Black.otf"),
+        
+      });
+    
+      if (!fontsLoaded) {
+        return <Text>Loading fonts...</Text>;
+    }
     const [inputText, setInputText] = useState('');
 
   return (
+    <View>
     <View style={styles.container}>
       <Text style={styles.suggest}>Suggested strategy:</Text>
       <View style={styles.moderate}>
         <Text style={styles.mtext}>Moderate Growth</Text>
-        <View style={styles.shadow}>
+        <View>
         <View style={styles.equity}>
             <View>
-             <Text>Equity:Debt</Text>
-             <Text>50:50</Text>
+             <Text style={styles.smallhead}>Equity:Debt</Text>
+             <Text style={styles.boldtext}>50:50</Text>
             </View>
             <View>
-             <Text>Strategy</Text>
-             <Text>Balanced</Text>
+             <Text style={styles.smallhead}>Strategy</Text>
+             <Text style={styles.boldtext}>Balanced</Text>
             </View>
             <View>
-             <Text>No. Of Funds</Text>
-             <Text>7</Text>
+             <Text style={styles.smallhead}>No. Of Funds</Text>
+             <Text style={styles.boldtext}>7</Text>
             </View>
         </View>
         <View style={styles.equity2}>
             <View>
-             <Text>CAGR (3 Yrs)</Text>
-             <Text>18 %</Text>
+             <Text style={styles.smallhead}>CAGR (3 Yrs)</Text>
+             <Text style={styles.boldtext}>18 %</Text>
             </View>
             <View>
-             <Text>Rebalance Frequency</Text>
-             <Text>Quarterly</Text>
+             <Text style={styles.smallhead}>Rebalance Frequency</Text>
+             <Text style={styles.boldtext}>Quarterly</Text>
             </View>
         </View>
         </View>
       </View>
-      <Text style={styles.monthlysip}>Pick a monthky SIP date*</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Select date"
-        value={inputText}
-        onChangeText={(text) => setInputText(text)}
-      />
+      <Text style={styles.monthlysip}>Pick a monthly SIP date*</Text>
+      <Date/>
     </View>
+    
+    </View>
+    
   )
 }
 
 const styles = StyleSheet.create({
     container:{
         borderRadius: 20,
-        
-
+        backgroundColor: 'white',
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
     },
     suggest:{
         fontWeight: 'semibold',
@@ -62,6 +72,7 @@ const styles = StyleSheet.create({
         color: '#595959',
         paddingTop: 24,
         paddingBottom: 24,
+        fontFamily: "CharmanSerif",
 
     },
     moderate:{
@@ -74,6 +85,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
+        borderRadius: 12,
 
     },
     mtext:{
@@ -81,10 +93,11 @@ const styles = StyleSheet.create({
         fontWeight: 'semibold',
         paddingBottom: 24,
         paddingLeft: 17.5,
+        fontFamily: "CharmanSerif",
     },
     equity:{
         flexDirection: 'row',
-        gap: 28,
+        gap: 60,
         backgroundColor: 'white',
         margin: 0,
         paddingLeft: 16,
@@ -92,17 +105,23 @@ const styles = StyleSheet.create({
     },
     equity2: {
         flexDirection: 'row',
-        gap: 28,
+        gap: 56,
         backgroundColor: 'white',
         margin: 0,
         paddingLeft: 16,
         paddingTop: 10,
         paddingBottom: 16,
+        borderBottomRightRadius: 12,
+        borderBottomLeftRadius: 12,
     },
     monthlysip:{
         marginLeft: 20,
         marginTop: 48,
-
+        fontSize: 14,
+        fontWeight: 'medium',
+        color: '#595959',
+        fontFamily: "NotoSans",
+        paddingBottom: 4,
     },
     input:{
         marginLeft: 20,
@@ -111,10 +130,19 @@ const styles = StyleSheet.create({
         borderColor: 'grey',
         borderRadius: 14,
         paddingLeft: 12,
+        marginTop: 8,
     },
-
     smallhead:{
-        fontSize:10
+        fontSize: 10,
+        fontWeight: 'medium',
+        color: '#8C8C8C',
+        fontFamily: "NotoSans"
+    },
+    boldtext:{
+        fontSize: 14,
+        fontWeight: 'medium',
+        color: '#595959',
+        fontFamily: "NotoSans"
     }
 
 })
